@@ -11,9 +11,8 @@ in our paper accepted at ICSE 2023:
     * [Basic Testing](#basic-testing)
 - [Comparison with Existing Tools (Section IV-B)](#4-comparison-with-existing-tools-section-iv-b)
 - [Utility of Diver's Techniques (Section IV-C)](#5-utility-of-divers-techniques-section-iv-c)
-- [Instructions for Extending or Reusing Diver](#6-instructions-for-extending-or-reusing-diver)
-    * [Instructions to run Diver on new benchmarks](#instructions-to-run-diver-on-new-benchmarks)
-    * [Tool Maintenance](#tool-maintenance)
+- [Instructions for Extending or Reusing Diver](#6-instructions-for-reusing-diver)
+- [Tool Maintenance](#7-tool-maintenance)
     
 ## 1. Operating System and Hardware Requirements
 Please see [REQUIREMENTS.md](./REQUIREMENTS.md) for requirements for OS and Hardware environments.
