@@ -19,7 +19,7 @@ Please see [REQUIREMENTS.md](./REQUIREMENTS.md) for requirements for OS and Hard
 
 ## 2. Artifact Structure
 
-* [Diver](./Diver): contains the implementation of Diver (the same with the one in the docker image that will be installed in [Setup](#3-setup)).
+* [Diver](./Diver): contains the implementation of Diver (the same with the one in the docker image that will be installed via [Setup](#3-setup)).
 * [Section_IV](./Section_IV): contains benchmark formulas used in our experiments.
 * [scripts](./scripts): contains scripts to run experiments and check corresponding results.
 * [tests](./tests): contains seed files that will be used for the [basic testing](#basic-testing).
