@@ -74,13 +74,13 @@ def diver(benchmark,solver,solverbin,opt,logic,solver_api,timeout,mode,solver_ti
 
     print(cmd)
     os.system(cmd)
-    shutil.move("./running_data.log","./output/"+benchmark.split('.')[0]+".log")
+    shutil.move("./output/running_data.log","./output/"+benchmark.split('.')[0]+".log")
     shutil.rmtree("./tmp_benchmark")
     shutil.rmtree("./test_suit")
 
     ## Bug Type 
-    if os.path.exists("./bug_dir"):
-        shutil.move("./bug_dir","./output/bug")
+    if os.path.exists("./output/bug_dir"):
+        shutil.move("./output/bug_dir","./output/bug")
     return
 
 def main():

@@ -1,8 +1,9 @@
 # Running Diver on new other formulas
-Suppose the current working directory is ``<path to Diver-Artifact>/Diver``.
-You can use Diver to test an SMT Solver as follows (the instructions can be also found via ```python3 __main__.py --help```):
+Suppose the docker image ``jongwook123/diver:icse2023-artifact`` is downloaded.
+You can use Diver to test an SMT Solver as follows (the instructions can be also found via ```docker run -ti --rm jongwook123/diver:icse2023-artifact python3 __main__.py --help```):
+
 ```bash
-$ python3 __main__.py -i <SEED_DIR> -s <SOLVER> -b <SOLVER_PATH> -o <SOLVER_OPTION> -t <SOLVER_TIME> -l <LOGIC> -m <MUTANTS_NUMBER>
+$ docker run -ti --rm -v `pwd`/<HOST_OUTPUT>:/Diver/<OUTPUT_PATH> jongwook123/diver:icse2023-artifact python3 __main__.py -i <SEED_DIR> -s <SOLVER> -b <SOLVER_PATH> -o <SOLVER_OPTION> -t <SOLVER_TIME> -l <LOGIC> -m <MUTANTS_NUMBER> --output <OUTPUT_PATH>
 ```
 
 * ``-i`` : can be the directory that contains seed formulas, or can be the path of a single seed formula (.smt2 file). Seed formulas can be downloaded from [SMT-LIB website](http://smtlib.cs.uiowa.edu/benchmarks.shtml).
@@ -12,6 +13,8 @@ $ python3 __main__.py -i <SEED_DIR> -s <SOLVER> -b <SOLVER_PATH> -o <SOLVER_OPTI
 * ``-t`` : SMT Solver timeout (in seconds, default: 10).
 * ``-l`` : logic of an input seed formula (e.g., QF_SLIA, QF_NRA, ...).
 * ``-m`` : number of statisfiable mutants that will be generated from a given input seed formula (default : 1,000).
+* ``--output``: path of the directory which will store a log and bugs files detected by Diver (default: ./output). 
+
 
 ## Running Example
 * Suppose the directory ``../benchmark`` contains seed formulas in ``QF_SLIA`` logic.

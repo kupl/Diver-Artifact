@@ -45,7 +45,7 @@ class ArgParser(object):
         parser.add_argument("--mode",default="diver", help = "the variant of Diver (e.g., diver, nocomp, noweight)")
         parser.add_argument("--debug",default="true", help = "Debugging option for obtaining bug informations")
 
-        parser.add_argument("--output",default=os.getcwd(), help = "the output directory for log file and bug directories")
+        parser.add_argument("--output",default=os.getcwd()+"/output", help = "the output directory for log file and bug directories")
 
         arguments = vars(parser.parse_args())
 

@@ -39,10 +39,10 @@ def setup_globals(args,output):
 def get_cmd(diver_path,idx):
     cmd = []
     if idx == 1:
-        cmd = ['docker', 'run', '--rm', '-v',diver_path+':/Diver/bug_dir','jongwook123/diver:icse2023-artifact','timeout',str(KILL_TIMEOUT),'python3','__main__.py',
+        cmd = ['docker', 'run', '--rm', '-v',diver_path+':/Diver/output/bug_dir','jongwook123/diver:icse2023-artifact','timeout',str(KILL_TIMEOUT),'python3','__main__.py',
         '--solver','z3', '--solverapi','z3','--solverbin','/solvers/z3-a069b65/build/z3','--benchmark','Section_IV/Regenerate/'+BENCHMARK,'--logic','QF_SLIA']
     elif idx == 2:
-        cmd = ['docker', 'run', '--rm', '-v',diver_path+':/Diver/bug_dir','jongwook123/diver:icse2023-artifact','timeout',str(KILL_TIMEOUT),'python3','__main__.py',
+        cmd = ['docker', 'run', '--rm', '-v',diver_path+':/Diver/output/bug_dir','jongwook123/diver:icse2023-artifact','timeout',str(KILL_TIMEOUT),'python3','__main__.py',
         '--solver','z3', '--solverapi','z3','--solverbin','/solvers/z3-0146259/build/z3','--benchmark','Section_IV/Regenerate/'+BENCHMARK,'--logic','QF_SLIA','--option','smt.string_solver=z3str3']
     return cmd
 
