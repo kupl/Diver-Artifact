@@ -52,7 +52,7 @@ you will obtain the log file ```test_output/test_output.log``` that looks simila
 Please see [Exp_SectionIV-B.md](./Exp_SectionIV-B.md).
 
 ## 5. Utility of Diver's Techniques (Section IV-C)
-Please see [Exp_SectionIV-C.md](./SectionIV-C.md).
+Please see [Exp_SectionIV-C.md](./Exp_SectionIV-C.md).
 
 ## 6. Instructions for Reusing Diver
 Please see [USAGE.md](./USAGE.md) to run Diver on new other formulas.
