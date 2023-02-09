@@ -15,7 +15,7 @@ $ python3 scripts/diver_plot.py --input output/diver_noweight --detail true
 $ python3 scripts/diver_plot.py --input output/diver_nocomp --detail true
 ```
 
-**Note: Running experiments using a machine with fewer than 30 cores**
+***Note: when running experiments using a machine with fewer than 30 cores***
 
 For example, if your machine has 16 cores in total and you wish to use 10 cores only,
 run the following commands to repeat executions of each mode 30 times.
