@@ -34,7 +34,7 @@ def preprocess(formula,v_type,model,logic):
         trace = inspect.trace()
         fn = trace[-1].filename
         lineno = trace[-1].lineno
-        print("Runtime error at %s:%s" % (fn, lineno), flush=True)
-        print("msg: " + str(e), flush=True)
+        #print("Runtime error at %s:%s" % (fn, lineno), flush=True)
+        #print("msg: " + str(e), flush=True)
         return None
 

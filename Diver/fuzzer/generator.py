@@ -54,7 +54,6 @@ class TimeOutException(Exception):
 def alarm_handler(signum, frame):
     raise TimeOutException()
 
-@trace
 class MutantGenerator(object):
     def __init__(self, seed_data, solver_data, formula_data, file_data, info, max_iteration, mode, experiment, debug = None):
         ### Seed Information 
@@ -214,9 +213,9 @@ class MutantGenerator(object):
             trace = inspect.trace()
             fn = trace[-1].filename
             lineno = trace[-1].lineno
-            print(candidate_term,self.org_path)
-            print(fn,lineno,e)
-            print("[Line 125] Validate Term Error : {}".format(e))
+            #print(candidate_term,self.org_path)
+            #print(fn,lineno,e)
+            #print("[Line 125] Validate Term Error : {}".format(e))
             self.timeout_cnt += 1
             return False
 
@@ -309,9 +308,9 @@ class MutantGenerator(object):
                 trace = inspect.trace()
                 fn = trace[-1].filename
                 lineno = trace[-1].lineno
-                print("complicate error")
-                print(fn,e,lineno)
-                print(term_val)
+                #print("complicate error")
+                #print(fn,e,lineno)
+                #print(term_val)
                 continue 
         if len(list(fresh_dict.keys()))==0:
             return candidate_term

@@ -137,8 +137,8 @@ def run_solver_in_thread(core,seed,s_name,mutant,m_name,solver,s_bin,path,timeou
         trace = inspect.trace()
         fn = trace[-1].filename
         lineno = trace[-1].lineno
-        print("Runtime error at %s:%s" % (fn, lineno), flush=True)
-        print("msg: " + str(e), flush=True)
+        #print("Runtime error at %s:%s" % (fn, lineno), flush=True)
+        #print("msg: " + str(e), flush=True)
         return "error"
 
 @trace
@@ -415,7 +415,7 @@ def run_diver(arg, benchmark, core, wait, SEED):
                     print(lineno,e,fn)
                     continue
         except Exception as e:
-            print("Line 183 : Error {}".format(e))
+            #print("Line 183 : Error {}".format(e))
             continue
         #logging.debug("[State : Result of Mutant ] sat: {}, unsat: {}, unknown: {}, invalid: {}, crash: {}, error: {}, timeout: {}".format(result["sat"],result["unsat"],result["unknown"],result["invalid"],result["crash"],result["error"],result["timeout"]))
     return 
