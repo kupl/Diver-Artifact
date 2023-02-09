@@ -31,11 +31,7 @@ Please see [INSTALL.md](./INSTALL.md) for the installation. We provide a dockeri
 ### Basic Testing
 To check whether the installlation was successful or not, run the following commands:
 ```bash
-$ docker create -it --rm -v `pwd`/test_output:/Diver/output --name my_diver jongwook123/diver:icse2023-artifact
-$ docker start my_diver
-$ docker exec my_diver timeout 20 python3 __main__.py -i tests/seed1.smt2 -l QF_SLIA -s cvc -b /solvers/cvc5-1.0.1/build/bin/cvc5
-$ docker exec my_diver mv running_data.log ./output/test_output.log
-$ docker rm -f my_diver
+$ docker run -ti --rm -v `pwd`/test_output:/Diver/output timeout 20 python3 __main__.py -i tests/seed1.smt2 -l QF_SLIA -s cvc -b /solvers/cvc5-1.0.1/build/bin/cvc5 --output ./test_output
 ```
 
 If the installation and the testing were successful,
