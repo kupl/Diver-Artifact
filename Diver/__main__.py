@@ -28,27 +28,30 @@ from logging.config import dictConfig
 from fuzzer.generator import *
 from analyzer.pre_analyzer import *
 
-dictConfig({
-    'version': 1,
-    'formatters': {
-        'default': {
-            'format': '[%(asctime)s] %(message)s',
-        }
-    },
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': 'running_data.log',
-            'formatter': 'default',
+def logger(output):
+    dictConfig({
+        'version': 1,
+        'formatters': {
+            'default': {
+                'format': '[%(asctime)s] %(message)s',
+            }
         },
-    },
-    'root': {
-        'level': 'DEBUG',
-        'handlers': ['file']
-    }
-})
+        'handlers': {
+            'file': {
+                'level': 'DEBUG',
+                'class': 'logging.FileHandler',
+                'filename': output+'running_data.log',
+                'formatter': 'default',
+            },
+        },
+        'root': {
+            'level': 'DEBUG',
+            'handlers': ['file']
+        }
+    })
+    return dictConfig
 
+OUTPUT = ""
 manager = multiprocessing.Manager()
 final_list = manager.list()
 
@@ -57,7 +60,7 @@ def bug_copy(core,s_name,m_name,tmp_path,solver,SEED,seed,bug_type,message=None,
     t = "%04d/%02d/%02d %02d:%02d:%02d"%(now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
     logging.debug("File: {} -> {}'s {}".format(m_name,solver,bug_type))
     print(colored("[{}] [core-{}] ({},{}) SMT Solver({})=>Bug Type:{}".format(t,core,s_name,m_name,solver,bug_type),'red'))
-    bug_dir = os.path.join(os.getcwd(),"bug_dir")
+    bug_dir = os.path.join(os.getcwd(),OUTPUT+"bug_dir")
     bug_dir = os.path.join(bug_dir,solver)
     bug_file_dir = os.path.join(bug_dir,s_name+"_"+str(SEED))
     create_bug_dir(bug_file_dir)
@@ -419,9 +422,20 @@ def run_diver(arg, benchmark, core, wait, SEED):
 
 @trace
 def main():
+    global OUTPUT
+    global LOGGER
+
     args = ArgParser()
     args.parse_arguments(argparse.ArgumentParser())
     parsedArg = args.get_arguments()
+    OUTPUT = parsedArg["output"]
+    if parsedArg["output"][-1] != "/":
+        OUTPUT+="/"
+    if not os.path.exists(parsedArg["output"]):
+        os.makedirs(parsedArg["output"])
+
+    logger(OUTPUT)
+
     SEED = parsedArg["seed"]
     random.seed(SEED)
     try:

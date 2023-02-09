@@ -1,5 +1,6 @@
 import argparse
 import time
+import os
 
 class ArgParser(object):
 
@@ -43,6 +44,9 @@ class ArgParser(object):
         parser.add_argument("--experiment", default = "0", help = "Exeriment Number (default = None)")
         parser.add_argument("--mode",default="diver", help = "the variant of Diver (e.g., diver, nocomp, noweight)")
         parser.add_argument("--debug",default="true", help = "Debugging option for obtaining bug informations")
+
+        parser.add_argument("--output",default=os.getcwd(), help = "the output directory for log file and bug directories")
+
         arguments = vars(parser.parse_args())
 
 
@@ -75,6 +79,8 @@ class ArgParser(object):
         self.experiment = arguments["experiment"]
         self.mode = arguments["mode"]
         self.debug = (arguments["debug"] == "true")
+        self.output = arguments["output"]
+
 
     def get_arguments(self):
         self.parsed_arg["solver_api"] = self.solver_api
@@ -93,4 +99,5 @@ class ArgParser(object):
         self.parsed_arg["mode"] = self.mode
         self.parsed_arg["experiment"] = self.experiment
         self.parsed_arg["debug"] = self.debug
+        self.parsed_arg["output"] = self.output
         return self.parsed_arg

@@ -1,12 +1,4 @@
-# Installation
-
-## Dependencies 
-Install Python libraries below:
-```bash
-pip3 install pyinterval pyparsing toml rstr termcolor numpy z3-solver cvc5
-```
-
-## Running Diver on new other formulas
+# Running Diver on new other formulas
 Suppose the current working directory is ``<path to Diver-Artifact>/Diver``.
 You can use Diver to test an SMT Solver as follows (the instructions can be also found via ```python3 __main__.py --help```):
 ```bash
