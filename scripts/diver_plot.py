@@ -106,6 +106,10 @@ def make_statistics(logs):
         while "Bug" in datas[it]:
             it -=1 
         last = datas[it]
+        if "Start!!!" in last:
+            infos = [min_time,max_time,number_of_gen,number_of_mutants, cores, number_of_sat_mutants, number_of_unsat_mutants, sat_time, unsat_time, testing_time, gen_time, judge_time]
+            core_infos = [number_of_gen_core,number_of_mutants_core, number_of_sat_mutants_core, number_of_unsat_mutants_core, sat_time_core, unsat_time_core, testing_time_core, gen_time_core, judge_time_core]
+            return infos, core_infos
 
         number_of_sat_mutants[idx] += sat_mutants
         number_of_sat_mutants_core[idx][core] = sat_mutants
