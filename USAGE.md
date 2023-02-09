@@ -6,9 +6,9 @@ You can use Diver to test an SMT Solver as follows (the instructions can be also
 $ docker run -ti --rm -v `pwd`/<HOST_OUTPUT>:/Diver/<OUTPUT_PATH> jongwook123/diver:icse2023-artifact python3 __main__.py -i <SEED_DIR> -s <SOLVER> -b <SOLVER_PATH> -o <SOLVER_OPTION> -t <SOLVER_TIME> -l <LOGIC> -m <MUTANTS_NUMBER> --output <OUTPUT_PATH>
 ```
 
-* ``-i`` : can be the directory that contains seed formulas, or can be the path of a single seed formula (.smt2 file). Seed formulas can be downloaded from [SMT-LIB website](http://smtlib.cs.uiowa.edu/benchmarks.shtml).
+* ``-i`` : can be the directory that contains seed formulas, or can be the path of a single seed formula (.smt2 file). 
 * ``-s`` : name of an SMT Solver to test (e.g., z3, cvc, dreal).
-* ``-b`` : path of the binary of an SMT Solver to test (e.g., ../z3/build/z3, ../cvc5/build/bin/cvc5).
+* ``-b`` : path of the binary of an SMT Solver to test (e.g., /solvers/cvc5-1.0.0/build/bin/cvc5, /solvers/z3-4.11.0/build/z3).
 * ``-o`` : options that will be used to invoke an SMT Solver. Multiple options can be provided using comma (e.g., ``smt.string_solver=z3str3,rewriter.flat=false``).
 * ``-t`` : SMT Solver timeout (in seconds, default: 10).
 * ``-l`` : logic of an input seed formula (e.g., QF_SLIA, QF_NRA, ...).
