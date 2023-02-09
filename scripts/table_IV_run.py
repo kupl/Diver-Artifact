@@ -40,6 +40,30 @@ def setup_globals(args,output):
     MUTANTS = args.mutants
     S_TIMEOUT = args.solver_time
 
+def get_status():
+    global INIT_VALUE
+    path = {"typefuzz": '/typefuzz', "opfuzz": '/opfuzz', "storm": '/storm', "autostring": '/autostring', "fusion": '/fusion'}
+    tool_path = OUTPUT_DIR+path[TOOL]
+
+    if os.path.exists(tool_path):
+        dirs = os.listdir(tool_path)
+        cur_jobs = []
+        for dir in dirs:
+            cur_jobs.append(int(dir.split('_')[-1]))
+
+        idx = 0
+
+        for job in cur_jobs:
+            cur_benches = os.listdir(tool_path+"/run_"+str(job))
+            if len(cur_benches)==25 and idx<job:
+                idx = job
+
+        LOCK.acquire()
+        cnt.value = idx
+        INIT_VALUE = idx
+        LOCK.release()
+    return
+
 def get_solvers(bench):
     if bench in [5,6,7,20]:
         solver = "Z3str3"
@@ -107,28 +131,14 @@ def main():
     num_task = args.core
     tasks = [i+1 for i in range(num_task)]
 
-    LOCK.acquire()
-    cnt.value = 0
-    LOCK.release()
-
-    path = {"typefuzz": '/typefuzz', "opfuzz": '/opfuzz', "storm": '/storm', "autostring": '/autostring', "fusion": '/fusion'}
-    tool_path = OUTPUT_DIR+path[TOOL]
-
-    if os.path.exists(tool_path):
-        dirs = os.listdir(tool_path)
-        cur_jobs = []
-        for dir in dirs:
-            cur_jobs.append(int(dir.split('_')[-1]))
-        cur_jobs.sort()
-        LOCK.acquire()
-        cnt.value = cur_jobs[-1]
-        INIT_VALUE = cur_jobs[-1]
-        LOCK.release()
-
 
     if args.benchmark == "ALL":
         for i in range(1,26):
             BENCHMARK = "bench_"+str(i)+".smt2"
+            LOCK.acquire()
+            cnt.value = 0
+            LOCK.release()
+            get_status()
             pool = Pool(args.core)
             pool.map(run,tasks)
             pool.close()

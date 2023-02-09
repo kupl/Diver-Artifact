@@ -39,6 +39,31 @@ def setup_globals(args,output):
     S_TIMEOUT = args.solver_time
 
 
+def get_status():
+    global INIT_VALUE
+    path = {"diver": '/diver', "noweight": '/diver_noweight', "nocomp": '/diver_nocomp',"nooracle": "/diver_nooracle"}
+    diver_path = OUTPUT_DIR+path[MODE]
+
+    if os.path.exists(diver_path):
+        dirs = os.listdir(diver_path)
+        cur_jobs = []
+        for dir in dirs:
+            cur_jobs.append(int(dir.split('_')[-1]))
+
+        idx = 0
+
+        for job in cur_jobs:
+            cur_benches = os.listdir(diver_path+"/run_"+str(job))
+            if len(cur_benches)==25 and idx<job:
+                idx = job
+
+        LOCK.acquire()
+        cnt.value = idx
+        INIT_VALUE = idx
+        LOCK.release()
+    return
+
+
 def get_cmd(diver_path):
     cmd = ['docker', 'run', '--rm', '-v',diver_path+':/Diver/output','jongwook123/diver:icse2023-artifact','timeout',str(KILL_TIMEOUT),'python3','scripts/diver.py','--mode',MODE, '--time',str(TIMEOUT),'--benchmark',BENCHMARK, '--solver_time',str(S_TIMEOUT)]
     return cmd
@@ -94,30 +119,15 @@ def main():
     num_task = args.core
     tasks = [i+1 for i in range(num_task)]
 
-    LOCK.acquire()
-    cnt.value = 0
-    LOCK.release()
-
-    path = {"diver": '/diver', "noweight": '/diver_noweight', "nocomp": '/diver_nocomp',"nooracle": "/diver_nooracle"}
-    diver_path = OUTPUT_DIR+path[MODE]
-
-    if os.path.exists(diver_path):
-        dirs = os.listdir(diver_path)
-        cur_jobs = []
-        for dir in dirs:
-            cur_jobs.append(int(dir.split('_')[-1]))
-        cur_jobs.sort()
-        LOCK.acquire()
-        cnt.value = cur_jobs[-1]
-        INIT_VALUE = cur_jobs[-1]
-        LOCK.release()
-
-    
     if args.benchmark == "ALL" and args.mode != "nooracle":
         for i in range(1,26):
             if args.mode == "nospec" and not(i in [1,3,11,12,16,19,24]):
                 continue
             BENCHMARK = "bench_"+str(i)+".smt2"
+            LOCK.acquire()
+            cnt.value = 0
+            LOCK.release()
+            get_status()
             pool = Pool(args.core)
             pool.map(run,tasks)
             pool.close()
@@ -125,6 +135,10 @@ def main():
     elif args.benchmark == "ALL" and args.mode == "nooracle":
         for i in range(13,22):
             BENCHMARK = "bench_"+str(i)+".smt2"
+            LOCK.acquire()
+            cnt.value = 0
+            LOCK.release()
+            get_status()
             pool = Pool(args.core)
             pool.map(run,tasks)
             pool.close()

@@ -20,12 +20,12 @@ $ docker run -ti --rm -v `pwd`/<HOST_OUTPUT>:/Diver/<OUTPUT_PATH> jongwook123/di
 * Suppose the directory ``../benchmark`` contains seed formulas in ``QF_SLIA`` logic.
 To test CVC5 (where the binary is located at ``/solvers/cvc5-1.0.1/build/bin/cvc5``) using Diver, run the following command:
 ```bash
-$ timeout 1800 python3 __main__.py -i ../benchmark -s cvc -b /solvers/cvc5-1.0.1/build/bin/cvc5 -l QF_SLIA
+$ docker run -ti --rm -v `pwd`/test_output:/Diver/test_output jongwook123/diver:icse2023-artifact timeout 1800 python3 __main__.py -i ./tests -s cvc -b /solvers/cvc5-1.0.1/build/bin/cvc5 -l QF_SLIA --output ./test_output
 ```
 
-* If Diver found bugs, the directory ```./bug_dir``` will be generated. ```./bug_dir``` will have subdirectories tagged with names of bug types. For example, if you found bugs in CVC5 SMT solver, ```./bug_dir``` will have the following structure:
+* If Diver found bugs, the directory ```./test_output/bug_dir``` will be generated. ```./test_output/bug_dir``` will have subdirectories tagged with names of bug types. For example, if you found bugs in CVC5 SMT solver, ```./test_output/bug_dir``` will have the following structure:
 ```text
-bug_dir
+test_output/bug_dir
 ├── cvc_soundness: the directory for refutational soundness bugs detected in CVC5.
 │            ├── <SEED1>
 │            |      ├── <SEED1>.smt2

@@ -36,6 +36,29 @@ def setup_globals(args,output):
     OUTPUT_DIR = output
 
 
+def get_status():
+    global INIT_VALUE
+    diver_path = OUTPUT_DIR+MODE
+
+    if os.path.exists(diver_path):
+        dirs = os.listdir(diver_path)
+        cur_jobs = []
+        for dir in dirs:
+            cur_jobs.append(int(dir.split('_')[-1]))
+
+        idx = 0
+
+        for job in cur_jobs:
+            cur_benches = os.listdir(diver_path+"/run_"+str(job))
+            if len(cur_benches)==2 and idx<job:
+                idx = job
+
+        LOCK.acquire()
+        cnt.value = idx
+        INIT_VALUE = idx
+        LOCK.release()
+    return
+
 def get_cmd(diver_path,idx):
     cmd = []
     if idx == 1:
@@ -113,6 +136,10 @@ def main():
 
     for i in range(1,3):
         BENCHMARK = "storm_bench_"+str(i)+".smt2"
+        LOCK.acquire()
+        cnt.value = 0
+        LOCK.release()
+        get_status()
         pool = Pool(args.core)
         pool.map(run,tasks)
         pool.close()
