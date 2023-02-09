@@ -23,9 +23,29 @@ $ python3 scripts/table_IV_plot.py --input output/autostring
 $ python3 scripts/table_IV_plot.py --input output/fusion
 ```
 
-***NOTE***
+**Note: Version of Compared Tools**
 * The 5 compared tools used for the experiments are the latest versions as of August 2022: 
   + TypeFuzz([8798c89](https://github.com/testsmt/yinyang/tree/8798c89ace78fad5617323e61ba8f0a7e3c59f16)), OpFuzz([8798c89](https://github.com/testsmt/yinyang/tree/8798c89ace78fad5617323e61ba8f0a7e3c59f16)), Storm([55d0916](https://github.com/Practical-Formal-Methods/storm/tree/55d091624523a0544112ffc339fe81103b3daa2b)), AutoString([5451df7](https://github.com/alebugariu/StringSolversTests/tree/5451df7579ec47260f7040867ff2a93f2d2a4ab6)) and Fusion([8798c89](https://github.com/testsmt/yinyang/tree/8798c89ace78fad5617323e61ba8f0a7e3c59f16)).
+
+**Note: Running experiments using a machine with fewer than 30 cores**
+
+For example, if your machine has 16 cores in total and you wish to use 10 cores only,
+run the following commands to repeat executions of each tool 30 times. Note that, in this case, the running time will be **about 75h for each tool** (1h for each benchmark * 25 benchmakrs * 3 commands for each tool). As an exception, runnning autostring will take less than 48h.
+```
+$ python3 scripts/table_IV_run.py --tool typefuzz --core 10 --time 3600 
+$ python3 scripts/table_IV_run.py --tool typefuzz --core 10 --time 3600
+$ python3 scripts/table_IV_run.py --tool typefuzz --core 10 --time 3600
+$ python3 scripts/table_IV_run.py --tool opfuzz --core 10 --time 3600
+$ python3 scripts/table_IV_run.py --tool opfuzz --core 10 --time 3600
+$ python3 scripts/table_IV_run.py --tool opfuzz --core 10 --time 3600
+...
+$ python3 scripts/table_IV_run.py --tool fusion --core 10 --time 3600 
+$ python3 scripts/table_IV_run.py --tool fusion --core 10 --time 3600
+$ python3 scripts/table_IV_run.py --tool fusion --core 10 --time 3600
+```
+
+The bug-finding results can be obtained by the above commands that start with ``python3 scripts/table_IV_plot.py``.
+
 
 ## Robustness of Diver
 To reproduce the results in the paragraph ***Robustness of Diver***,  run the following command. Please note that running the command will take quite a long time (**about 25h** - 1h for each benchmark * 25 benchmarks).
@@ -39,6 +59,20 @@ Once the execution finishes, the directory ```./output/diver``` will be generate
 ```
 $ python3 scripts/diver_plot.py --input output/diver --detail true
 ```
+
+**Note: Running experiments using a machine with fewer than 30 cores**
+
+For example, if your machine has 16 cores in total and you wish to use 10 cores only,
+run the following commands to repeat executions of Diver 30 times.
+Note that, in this case, the running time will be **about 75h** (1h for each benchmark * 25 benchmakrs * 3 commands).
+```
+$ python3 scripts/table_IV_run.py --tool diver --core 10 --time 3600 
+$ python3 scripts/table_IV_run.py --tool diver --core 10 --time 3600
+$ python3 scripts/table_IV_run.py --tool diver --core 10 --time 3600
+```
+
+The bug-finding results can be obtained by the above command that starts with ``python3 scripts/diver_plot.py``.
+
 
 
 ### Structure of Outputs
@@ -71,3 +105,16 @@ Once terminated, run the following command to check the bug-finding results:
 ```
 $ python3 scripts/reproduce_storm_plot.py --input output/reproduce_storm
 ```
+
+**Note: Running experiments using a machine with fewer than 30 cores**
+
+For example, if your machine has 16 cores in total and you wish to use 10 cores only,
+run the following commands to repeat executions of Diver 30 times.
+Note that, in this case, the running time will be **about 6h** (1h for each benchmark * 2 benchmakrs * 3 commands).
+```
+$ python3 scripts/reproduce_storm_run.py --core 10 --time 3600
+$ python3 scripts/reproduce_storm_run.py --core 10 --time 3600
+$ python3 scripts/reproduce_storm_run.py --core 10 --time 3600
+```
+
+The bug-finding results can be obtained by the above command that starts with ``python3 scripts/reproduce_storm_plot.py``.
