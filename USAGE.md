@@ -15,7 +15,7 @@ $ docker run -ti --rm -v `pwd`/<HOST_OUTPUT>:/Diver/output jongwook123/diver:ics
 
 
 ## Running Example
-* Given the seed formulas (in ``QF_SLIA`` logic) located at the directory [``./tests``](https://github.com/kupl/Diver-Artifact/tree/main/tests), to test CVC5 (where the binary is located at ``/solvers/cvc5-1.0.1/build/bin/cvc5``), run the following command:
+* Given the ``QF_SLIA`` seed formulas in the directory [``./tests``](https://github.com/kupl/Diver-Artifact/tree/main/tests), to test CVC5 where the binary is located at ``/solvers/cvc5-1.0.1/build/bin/cvc5``, run the following command:
 ```bash
 $ docker run -ti --rm -v `pwd`/test_output:/Diver/output jongwook123/diver:icse2023-artifact timeout 1800 python3 __main__.py -i ./tests -s cvc -b /solvers/cvc5-1.0.1/build/bin/cvc5 -l QF_SLIA
 ```
