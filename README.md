@@ -31,7 +31,7 @@ Please see [INSTALL.md](./INSTALL.md) for the installation. We provide a dockeri
 ### Basic Testing
 To check whether the installlation was successful or not, run the following commands:
 ```bash
-$ docker run -ti --rm -v `pwd`/test_output:/Diver/output jongwook123/diver:icse2023-artifact timeout 20 python3 __main__.py -i tests/seed1.smt2 -l QF_SLIA -s cvc -b /solvers/cvc5-1.0.1/build/bin/cvc5 --output ./output
+$ docker run -ti --rm -v `pwd`/test_output:/Diver/output jongwook123/diver:icse2023-artifact timeout 20 python3 __main__.py -i tests/seed1.smt2 -l QF_SLIA -s cvc -b /solvers/cvc5-1.0.1/build/bin/cvc5
 ```
 
 If the installation and the testing were successful,
