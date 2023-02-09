@@ -19,7 +19,7 @@ $ python3 scripts/diver_plot.py --input output/diver_nocomp --detail true
 
 For example, if your machine has 16 cores in total and you wish to use 10 cores only,
 run the following commands to repeat executions of each mode 30 times.
-Note that, in this case, the running time for each mode will be **about 75h** (1h for each benchmark * 25 benchmakrs * 3 commands for each mode).
+Note that, in this case, the running time will be **about 75h for each mode** (1h for each benchmark * 25 benchmakrs * 3 commands for each mode).
 ```
 $ python3 scripts/diver_run.py --mode noweight --core 10 --time 3600
 $ python3 scripts/diver_run.py --mode noweight --core 10 --time 3600
