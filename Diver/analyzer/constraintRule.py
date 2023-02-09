@@ -1,6 +1,7 @@
 import math
 import numpy as np
 import cvc5
+import re
 from cvc5 import Kind
 from z3 import *
 from functools import reduce
