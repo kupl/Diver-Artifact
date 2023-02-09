@@ -20,6 +20,7 @@ KILL_TIMEOUT = 0
 OUTPUT_DIR = ""
 CORE = 0
 BENCHMARK = ""
+INIT_VALUE = 0
 
 def setup_globals(args,output):
     global MODE
@@ -51,7 +52,7 @@ def run(task):
     idx = int(bench.split('_')[-1])
     LOCK.acquire()
     cnt.value += 1
-    print(BENCHMARK+' processing '+str(cnt.value)+'/'+str(CORE))
+    print(BENCHMARK+' processing '+str(cnt.value)+'/'+str(CORE+INIT_VALUE))
     diver_path = OUTPUT_DIR+MODE+"/run_"+str(cnt.value)+"/"+bench
     if not os.path.exists(diver_path):
         os.makedirs(diver_path)
@@ -72,6 +73,7 @@ def run(task):
 
 def main():
     global BENCHMARK
+    global INIT_VALUE
     # current directory path 
     path = os.path.dirname(os.path.abspath(__file__))
     current_dir = '/'.join(path.split('/')[:-1])
@@ -91,12 +93,26 @@ def main():
     num_task = args.core
     tasks = [i+1 for i in range(num_task)]
 
+    LOCK.acquire()
+    cnt.value = 0
+    LOCK.release()
+
+    diver_path = OUTPUT_DIR+MODE
+
+    if os.path.exists(diver_path):
+        dirs = os.listdir(diver_path)
+        cur_jobs = []
+        for dir in dirs:
+            cur_jobs.append(int(dir.split('_')[-1]))
+        cur_jobs.sort()
+        LOCK.acquire()
+        cnt.value = cur_jobs[-1]
+        INIT_VALUE = cur_jobs[-1]
+        LOCK.release()
+
 
     for i in range(1,3):
         BENCHMARK = "storm_bench_"+str(i)+".smt2"
-        LOCK.acquire()
-        cnt.value = 0
-        LOCK.release()
         pool = Pool(args.core)
         pool.map(run,tasks)
         pool.close()
