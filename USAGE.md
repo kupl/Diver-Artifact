@@ -1,9 +1,8 @@
 # Running Diver on new other formulas
-Suppose the docker image ``jongwook123/diver:icse2023-artifact`` is downloaded.
-You can use Diver to test an SMT Solver as follows (the instructions can be also found via ```docker run -ti --rm jongwook123/diver:icse2023-artifact python3 __main__.py --help```):
+You can run Diver on new formulas as follows (the instructions can be also found via ```docker run -ti --rm jongwook123/diver:icse2023-artifact python3 __main__.py --help```):
 
 ```bash
-$ docker run -ti --rm -v `pwd`/<HOST_OUTPUT>:/Diver/<OUTPUT_PATH> jongwook123/diver:icse2023-artifact python3 __main__.py -i <SEED_DIR> -s <SOLVER> -b <SOLVER_PATH> -o <SOLVER_OPTION> -t <SOLVER_TIME> -l <LOGIC> -m <MUTANTS_NUMBER> --output <OUTPUT_PATH>
+$ docker run -ti --rm -v `pwd`/<HOST_OUTPUT>:/Diver/output jongwook123/diver:icse2023-artifact python3 __main__.py -i <SEED_DIR> -s <SOLVER> -b <SOLVER_PATH> -o <SOLVER_OPTION> -t <SOLVER_TIME> -l <LOGIC> -m <MUTANTS_NUMBER>
 ```
 
 * ``-i`` : can be the directory that contains seed formulas, or can be the path of a single seed formula (.smt2 file). 
@@ -13,14 +12,12 @@ $ docker run -ti --rm -v `pwd`/<HOST_OUTPUT>:/Diver/<OUTPUT_PATH> jongwook123/di
 * ``-t`` : SMT Solver timeout (in seconds, default: 10).
 * ``-l`` : logic of an input seed formula (e.g., QF_SLIA, QF_NRA, ...).
 * ``-m`` : number of statisfiable mutants that will be generated from a given input seed formula (default : 1,000).
-* ``--output``: path of the directory which will store a log and bugs files detected by Diver (default: ./output). 
 
 
 ## Running Example
-* Suppose the directory ``../benchmark`` contains seed formulas in ``QF_SLIA`` logic.
-To test CVC5 (where the binary is located at ``/solvers/cvc5-1.0.1/build/bin/cvc5``) using Diver, run the following command:
+* Given the seed formulas (in ``QF_SLIA`` logic) located at the directory [``./tests``](https://github.com/kupl/Diver-Artifact/tree/main/tests), to test CVC5 (where the binary is located at ``/solvers/cvc5-1.0.1/build/bin/cvc5``), run the following command:
 ```bash
-$ docker run -ti --rm -v `pwd`/test_output:/Diver/test_output jongwook123/diver:icse2023-artifact timeout 1800 python3 __main__.py -i ./tests -s cvc -b /solvers/cvc5-1.0.1/build/bin/cvc5 -l QF_SLIA --output ./test_output
+$ docker run -ti --rm -v `pwd`/test_output:/Diver/output jongwook123/diver:icse2023-artifact timeout 1800 python3 __main__.py -i ./tests -s cvc -b /solvers/cvc5-1.0.1/build/bin/cvc5 -l QF_SLIA
 ```
 
 * If Diver found bugs, the directory ```./test_output/bug_dir``` will be generated. ```./test_output/bug_dir``` will have subdirectories tagged with names of bug types. For example, if you found bugs in CVC5 SMT solver, ```./test_output/bug_dir``` will have the following structure:
