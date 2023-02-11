@@ -4,7 +4,7 @@ we confirmed that our artifact meets the requirements for the two badges.
 * __Available__
 Our artifact is "Available" as we provide it via two publicly accessible archival repositories:
 - Github: <https://github.com/kupl/Diver-Artifact>
-- Zenodo: <https://doi.org/10.5281/zenodo.7625778>
+- Zenodo: <https://doi.org/10.5281/zenodo.7632205>
 
 * __Reusable__ 
 Our artifact is "Reusable" as we meet the following five criteria, where the first four are the criteria for "Functional" badge.
