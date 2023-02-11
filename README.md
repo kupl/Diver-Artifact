@@ -1,8 +1,8 @@
 # Diver-Artifact
 [Diver](https://github.com/kupl/Diver) is a black-box fuzzer for SMT Solvers. This repository contains the artifact for reproducing the experiments
-in our paper accepted at ICSE 2023:
+in our paper accepted to ICSE 2023:
 
-* [Diver: Oracle-Guided SMT Solver Testing with Unrestricted Random Mutations](https://drive.google.com/file/d/1Quyz9hq89uZAVT777R7KlktJ2MnY80wC/view?usp=sharing)
+* [Diver: Oracle-Guided SMT Solver Testing with Unrestricted Random Mutations](./paper.pdf)
 
 ## Table of Contents
 - [Operating System and Hardware Requirements](#1-operating-system-and-hardware-requirements)
